@@ -105,6 +105,7 @@
 
                 if (existingPlaylist) {
                     localStorage.setItem('playlist_id', existingPlaylist.id);
+                    // window.location.href = "/content.html";
                     window.location.href = "https://spotify-swipe.netlify.app/content.html";
                     console.log("Playlist existente");
                 } else {
