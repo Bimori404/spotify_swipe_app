@@ -32,122 +32,169 @@
             min-height: 73vh;
         }
     }
+
+    /* Loader styles */
+    .loader-background {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 </style>
 
 <body class="bg-svg flex justify-center items-center h-screen">
+
+    <div class="loader-background" id="loaderBackground">
+        <div class="loader"></div>
+    </div>
+
     <div class="">
         <div class="bg-white p-8 rounded-lg shadow-md w-96">
-            <div id="login" class="flex">
+            <div id="login" class="flex items-center">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
                     alt="Spotify Logo">
                 <button id="loginButton"
                     class="ml-2 mt-12 mb-12 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
-                    Iniciar sesion con Spotify
+                    Iniciar sesión con Spotify
                 </button>
             </div>
         </div>
     </div>
-</body>
 
-<script>
-    const Global = {
-        access_token: "",
-        refresh_token: "",
-        // redirect_uri: "http://localhost:5500/",
-        redirect_uri: "https://spotify-swipe.netlify.app",
-        client_id: "e087190a185d4fe3b8ce98087ca03b3c",
-        client_secret: "7566aa44b8b842ccaba4529383016596",
-        scopes: "user-read-private user-read-email playlist-modify-private playlist-modify-public"
-    };
+    <script>
+        const Global = {
+            access_token: "",
+            refresh_token: "",
+            redirect_uri: "http://localhost:5500/",
+            // redirect_uri: "https://spotify-swipe.netlify.app",
+            client_id: "e087190a185d4fe3b8ce98087ca03b3c",
+            client_secret: "7566aa44b8b842ccaba4529383016596",
+            scopes: "user-read-private user-read-email playlist-modify-private playlist-modify-public"
+        };
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const spoty_url = `https://accounts.spotify.com/authorize?client_id=${Global.client_id}&response_type=code&redirect_uri=${Global.redirect_uri}&scope=${Global.scopes}`;
+        document.addEventListener("DOMContentLoaded", () => {
+            const spoty_url = `https://accounts.spotify.com/authorize?client_id=${Global.client_id}&response_type=code&redirect_uri=${Global.redirect_uri}&scope=${Global.scopes}`;
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const spotyCode = urlParams.get("code");
-        if (spotyCode) {
-            authenticateUser(spotyCode);
-        }
+            const urlParams = new URLSearchParams(window.location.search);
+            const spotyCode = urlParams.get("code");
 
-        document.getElementById("loginButton").addEventListener("click", () => {
-            window.location.replace(spoty_url);
-        });
-
-        function authenticateUser(spotyCode) {
-            try {
-                const searchParams = new URLSearchParams({
-                    code: spotyCode,
-                    grant_type: "authorization_code",
-                    redirect_uri: Global.redirect_uri,
-                    client_id: Global.client_id,
-                    client_secret: Global.client_secret,
-                });
-
-                axios.post("https://accounts.spotify.com/api/token", searchParams)
-                    .then(res => {
-                        localStorage.setItem('access_token', res.data.access_token);
-                        localStorage.setItem('refresh_token', res.data.refresh_token);
-                        checkPlaylist(res.data.access_token);
-                    });
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        function checkPlaylist(access_token) {
-            axios.get("https://api.spotify.com/v1/me/playlists", {
-                headers: {
-                    "Authorization": `Bearer ${access_token}`
-                }
-            }).then(response => {
-                const playlists = response.data.items;
-                const existingPlaylist = playlists.find(playlist => playlist.name.toLowerCase() === "music swipe playlist");
-
-                if (existingPlaylist) {
-                    localStorage.setItem('playlist_id', existingPlaylist.id);
-                    // window.location.href = "/content.html";
-                    window.location.href = "https://spotify-swipe.netlify.app/content.html";
-                    console.log("Playlist existente");
-                } else {
-                    createPlaylist(access_token);
-                    console.log("No existe playlist");
-                    console.log("Generando playlist..");
-                }
-            }).catch(error => {
-                console.error('Error fetching playlists:', error);
+            document.getElementById("loginButton").addEventListener("click", () => {
+                document.getElementById("loaderBackground").style.display = "flex";
+                window.location.replace(spoty_url);
             });
-        }
 
-        function createPlaylist(access_token) {
-            axios.get("https://api.spotify.com/v1/me", {
-                headers: {
-                    "Authorization": `Bearer ${access_token}`
+            if (spotyCode) {
+                document.getElementById("loaderBackground").style.display = "flex";
+                authenticateUser(spotyCode);
+            }
+
+            function authenticateUser(spotyCode) {
+                try {
+                    const searchParams = new URLSearchParams({
+                        code: spotyCode,
+                        grant_type: "authorization_code",
+                        redirect_uri: Global.redirect_uri,
+                        client_id: Global.client_id,
+                        client_secret: Global.client_secret,
+                    });
+
+                    axios.post("https://accounts.spotify.com/api/token", searchParams)
+                        .then(res => {
+                            localStorage.setItem('access_token', res.data.access_token);
+                            localStorage.setItem('refresh_token', res.data.refresh_token);
+                            checkPlaylist(res.data.access_token);
+                        })
+                        .finally(() => {
+                            document.getElementById("loaderBackground").style.display = "none";
+                        });
+                } catch (error) {
+                    console.log(error);
+                    document.getElementById("loaderBackground").style.display = "none";
                 }
-            }).then(response => {
-                const userId = response.data.id;
-                const playlistName = "Music Swipe Playlist";
-                const playlistDescription = "Playlist created by Music Swipe App";
+            }
 
-                axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-                    name: playlistName,
-                    description: playlistDescription,
-                    public: false
-                }, {
+            function checkPlaylist(access_token) {
+                axios.get("https://api.spotify.com/v1/me/playlists", {
                     headers: {
                         "Authorization": `Bearer ${access_token}`
                     }
-                }).then(res => {
-                    localStorage.setItem('playlist_id', res.data.id);
-                    window.location.href = "/content.html";
+                }).then(response => {
+                    const playlists = response.data.items;
+                    const existingPlaylist = playlists.find(playlist => playlist.name.toLowerCase() === "music swipe playlist");
+
+                    if (existingPlaylist) {
+                        localStorage.setItem('playlist_id', existingPlaylist.id);
+                        // window.location.href = "/content.html";
+                        // window.location.href = "https://spotify-swipe.netlify.app/content.html";
+                        console.log("Playlist existente");
+                    } else {
+                        createPlaylist(access_token);
+                        console.log("No existe playlist");
+                        console.log("Generando playlist..");
+                    }
                 }).catch(error => {
-                    console.error('Error creating playlist:', error);
+                    console.error('Error fetching playlists:', error);
                 });
-            }).catch(error => {
-                console.error('Error fetching profile data:', error);
-            });
-            console.log("Playlist creada");
-        }
-    });
-</script>
+            }
+
+            function createPlaylist(access_token) {
+                axios.get("https://api.spotify.com/v1/me", {
+                    headers: {
+                        "Authorization": `Bearer ${access_token}`
+                    }
+                }).then(response => {
+                    const userId = response.data.id;
+                    const playlistName = "Music Swipe Playlist";
+                    const playlistDescription = "Playlist created by Music Swipe App";
+
+                    axios.post(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+                        name: playlistName,
+                        description: playlistDescription,
+                        public: false
+                    }, {
+                        headers: {
+                            "Authorization": `Bearer ${access_token}`
+                        }
+                    }).then(res => {
+                        localStorage.setItem('playlist_id', res.data.id);
+                        window.location.href = "/content.html";
+                        // window.location.href = "https://spotify-swipe.netlify.app/content.html";
+                    }).catch(error => {
+                        console.error('Error creating playlist:', error);
+                    });
+                }).catch(error => {
+                    console.error('Error fetching profile data:', error);
+                });
+                console.log("Playlist creada");
+            }
+        });
+    </script>
+</body>
 
 </html>

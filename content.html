@@ -277,8 +277,8 @@
     document.getElementById('logout').addEventListener('click', () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        // window.location.href = '/index.html';
-        window.location.href = "https://spotify-swipe.netlify.app";
+        window.location.href = '/index.html';
+        // window.location.href = "https://spotify-swipe.netlify.app";
 
     });
 
@@ -313,8 +313,7 @@
 
     async function fetchSongs(token) {
         const genre = getRandomGenre();
-        // const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=10`;
-        const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=20`;
+        const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=10`;
 
         try {
             const response = await fetch(url, {
