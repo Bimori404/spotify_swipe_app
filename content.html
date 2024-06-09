@@ -9,10 +9,6 @@
 </head>
 
 <style>
-    :root {
-        zoom: 128%;
-    }
-
     body {
         font-family: 'Roboto Condensed Variable', sans-serif;
         margin: 0;
@@ -26,7 +22,6 @@
         background-size: cover;
         background-position: center;
         min-height: 50vh;
-        /* zoom: 110%; */
     }
 
     /* ------------------------------- */
@@ -98,7 +93,7 @@
         display: flex;
         gap: 10px;
 
-        /* border: solid red 1px; */
+        border: solid red 1px;
 
         justify-content: center;
         align-items: center;
@@ -115,7 +110,7 @@
         height: 50px;
         border-radius: 50%;
         border: none;
-        /* background-color: #ccc; */
+        background-color: #ccc;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -158,10 +153,10 @@
         border-radius: 10px;
     }
 
-    .currentTime,
+    /* .currentTime,
     .duration {
         font-size: 14px;
-    }
+    } */
 
     /* ------------------------------- */
 
@@ -220,21 +215,52 @@
 
     /* Estilo para pantallas más grandes (PC) */
     @media (min-width: 1024px) {
+
+        .bg-svg {
+            height: 500%;
+        }
+
         .swipe-card {
-            width: 300px;
-            height: 400px;
+            width: 100vw;
+            height: 80vh;
+            max-width: 500px;
+            max-height: 600px;
         }
 
         #card-container {
             padding-top: 2%;
         }
+
+        .play-pause {
+            width: 70px;
+            height: 70px;
+        }
+
+        .reject {
+            width: 60px;
+            height: 60px;
+        }
+
+        .accept {
+            width: 60px;
+            height: 60px;
+        }
+
+        .progress-container {
+            height: 10px;
+            padding-bottom: 16px;
+        }
     }
 
     /* Ajustes adicionales para móviles */
     @media (max-width: 767px) {
+        :root {
+            zoom: 128%;
+        }
+
         .bg-svg {
-            background-position: top;
-            min-height: 73vh;
+            background-position: center;
+            height: 80dvh;
         }
 
         .dropdown {
@@ -259,15 +285,15 @@
     }
 </style>
 
-<body class="bg-svg h-screen">
-    <div class="dropdown">
+<body class="bg-svg flex justify-center items-top sm:h-screen">
+    <div class="dropdown sm:py-2">
         <button class="dropbtn"> <!-- img user --> </button>
         <div class="dropdown-content">
             <a href="#" id="logout">Logout</a>
         </div>
     </div>
     <!--  -->
-    <div>
+    <div class="py-16 sm:py-4">
         <div id="card-container" class="div-center">
             <!-- Cards here -->
         </div>
@@ -345,13 +371,13 @@
 
         card.innerHTML = `
                 <img src="${track.album.images[0].url}" alt="Album Cover">
-                <div class="swipe-card-content text-center">
+                <div class="swipe-card-content">
                     <div class="audio-controls">
                         <div class="progress-container">
                             <div class="progress-bar"></div>
                         </div>
                     </div>
-                    <h3 class="track">${track.name}</h3>
+                    <h3 class="track pt-4">${track.name}</h3>
                     <p class="name-artist ic-people"> ${track.artists.map(artist => artist.name).join(', ')}</p>
                 </div>
                 <div class="actions">
