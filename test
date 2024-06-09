@@ -1,0 +1,88 @@
+
+// ------------------------------------------------------------------------------------- //
+
+// card.querySelector('.accept').addEventListener('click', () => {
+//     audioElement.pause(); // Pausar el audio al aceptar la tarjeta
+//     card.classList.add('hide');
+//     saveSong(track); // Guardar la canción en localStorage
+//     setTimeout(() => {
+//         card.remove();
+//         checkForLastCard();
+//     }, 300);
+// });
+// function saveSong(track) {
+//     let savedSongs = JSON.parse(localStorage.getItem('saved_songs')) || [];
+//     savedSongs.push({
+//         name: track.name,
+//         artists: track.artists.map(artist => artist.name),
+//         preview_url: track.preview_url,
+//         album_image: track.album.images[0].url
+//     });
+//     localStorage.setItem('saved_songs', JSON.stringify(savedSongs));
+// }
+
+// ------------------------------------------------------------------------------------- //
+
+//     const audioElement = new Audio(track.preview_url);
+//     const playPauseButton = card.querySelector('.play-pause');
+//     const progressBar = card.querySelector('.progress-bar');
+
+//     const durationText = card.querySelector('.duration');
+//     const currentTimeText = card.querySelector('.currentTime');
+
+//     playPauseButton.addEventListener('click', () => {
+//         if (audioElement.paused) {
+//             audioElement.play();
+//             playPauseButton.innerHTML = '&#x2590;&#x2590;';
+//         } else {
+//             audioElement.pause();
+//             playPauseButton.innerHTML = '&#x25B6;';
+//         }
+//     });
+
+//     audioElement.addEventListener('timeupdate', () => {
+//         const progress = (audioElement.currentTime / audioElement.duration) * 100;
+//         progressBar.style.width = `${progress}%`;
+
+//         const minutes = Math.floor(audioElement.currentTime / 60);
+//         const seconds = Math.floor(audioElement.currentTime % 60);
+
+//         const durationMinutes = Math.floor(audioElement.duration / 60);
+//         const durationSeconds = Math.floor(audioElement.duration % 60);
+
+//         // durationText.textContent = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds} / ${durationMinutes}:${(durationSeconds < 10 ? '0' : '')}${durationSeconds}`;
+//         durationText.textContent = `${minutes}:${(seconds < 10 ? '0' : '')}${seconds}`;
+//         currentTimeText.textContent = `${durationMinutes}:${(durationSeconds < 10 ? '0' : '')}${durationSeconds}`;
+//     });
+
+//     return card;
+// }
+
+// ------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------- //
+// obtenemos los datos del usuario
+// document.addEventListener('DOMContentLoaded', () => {
+//     const accessToken = localStorage.getItem('access_token');
+//     if (accessToken) {
+//         fetchUserInfo(accessToken);
+//     }
+// });
+// async function fetchUserInfo(token) {
+//     const url = 'https://api.spotify.com/v1/me';
+//     try {
+//         const response = await fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Authorization': 'Bearer ' + token
+//             }
+//         });
+//         if (!response.ok) {
+//             throw new Error(`HTTP error! status: ${response.status}`);
+//         }
+//         const userData = await response.json();
+//         console.log('Usuario de Spotify:', userData);
+//     } catch (error) {
+//         console.error('Error al obtener información del usuario:', error);
+//     }
+// }
+// ------------------------------------------------------------------------------------- //
