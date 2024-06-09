@@ -7,7 +7,6 @@ Music Swipe App es una aplicación web que permite a los usuarios descubrir nuev
 - **Deslizamiento basado en género**: Los usuarios pueden deslizarse entre pistas de varios géneros para descubrir nueva música.
 - **Vista previa de pistas**: Cada pista cuenta con una vista previa, lo que permite a los usuarios escuchar antes de agregar a su lista de reproducción.
 - **Integración de lista de reproducción**: Los usuarios pueden conectar su cuenta de Spotify y agregar las pistas que les gusten a su lista de reproducción.
-- **Diseño receptivo**: La aplicación está diseñada para funcionar sin problemas tanto en dispositivos de escritorio como en dispositivos móviles.
 
 ## Empezar
 Para ejecutar Music Swipe App localmente, sigue estos pasos:
