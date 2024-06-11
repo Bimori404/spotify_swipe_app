@@ -25,6 +25,24 @@
         min-height: 50vh;
     }
 
+    .app-logo {
+        filter: drop-shadow(0 0 10px rgb(82, 82, 82));
+    }
+
+    .card-login {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .loginButton {
+        filter: drop-shadow(0 0 10px rgb(82, 82, 82));
+    }
+    /* .card-login {
+        background: #f3f3f3;
+    } */
+
     /* Ajustes adicionales para móviles */
     @media (max-width: 767px) {
         .bg-svg {
@@ -75,12 +93,13 @@
     </div>
 
     <div class="">
-        <div class="bg-white p-8 rounded-lg shadow-md w-96">
+        <div class="card-login p-8 rounded-lg shadow-md w-96">
             <div id="login" class="flex items-center">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
+                <img class="app-logo"
+                    src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
                     alt="Spotify Logo">
                 <button id="loginButton"
-                    class="ml-2 mt-12 mb-12 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
+                    class="loginButton ml-4 mt-12 mb-12 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
                     Iniciar sesión con Spotify
                 </button>
             </div>
@@ -183,7 +202,7 @@
                         }
                     }).then(res => {
                         localStorage.setItem('playlist_id', res.data.id);
-                        window.location.href = "/content.html";
+                        // window.location.href = "/content.html";
                         // window.location.href = "https://spotify-swipe.netlify.app/content.html";
                     }).catch(error => {
                         console.error('Error creating playlist:', error);

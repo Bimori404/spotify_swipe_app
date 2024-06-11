@@ -27,12 +27,19 @@
     /* ------------------------------- */
 
     .swipe-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .swipe-card {
         position: absolute;
         width: 90vw;
         height: 60vh;
         max-width: 300px;
         max-height: 400px;
-        background-color: #a7ffd6;
+        /* background-color: #a7ffd6; */
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         overflow: hidden;
@@ -64,11 +71,15 @@
     }
 
     .track {
+        color: #ffffff;
+        font-weight: bold;
         margin-bottom: 3px;
     }
 
     .name-artist {
-        color: #5e5e5e;
+        /* color: #5e5e5e; */
+        color: #d4d4d4;
+        font-style: italic;
         margin-top: 0;
         font-size: small;
     }
@@ -109,7 +120,7 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        border: none;
+        border: black;
         background-color: #ccc;
         display: flex;
         justify-content: center;
@@ -209,6 +220,8 @@
         height: 40px;
         border-radius: 50%;
         border: none;
+
+        filter: drop-shadow(0 0 5px #1ed760);
     }
 
     /* ------------------------------- */
@@ -285,9 +298,13 @@
     }
 </style>
 
-<body class="bg-svg flex justify-center items-top sm:h-screen">
+<body class="bg-svg flex justify-center items-top py-6 sm:h-screen">
     <div class="dropdown sm:py-2">
-        <button class="dropbtn"> <!-- img user --> </button>
+        <button class="dropbtn">
+            <a href="https://open.spotify.com/">
+                <!-- img user -->
+            </a>
+        </button>
         <div class="dropdown-content">
             <a href="#" id="logout">Logout</a>
         </div>
@@ -340,7 +357,7 @@
 
     async function fetchSongs(token) {
         const genre = getRandomGenre();
-        const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=10`;
+        const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=5`;
 
         try {
             const response = await fetch(url, {
@@ -477,10 +494,10 @@
 
         card.innerHTML = `
                 <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg" alt="Spotify Logo">
-                <div class="swipe-card-content text-center">
-                    <h4 class="text-sm font-bold flex justify-center items-center">Nos da mucha tristeza que tus Swipe's se hayan agotado :c</h4>
-                    <p class="text-sm text-gray-700 flex justify-center items-center">Vuelve mañana para mostrarte más música <3</p>
-                    <p class="text-sm text-gray-700 flex justify-center items-center">Esperemos que te guste alguna ;3</p>
+                <div class="swipe-card-content text-center pt-6">
+                    <h4 class="text-sm text-white font-bold flex justify-center items-center">Nos da mucha tristeza que tus Swipe's se hayan agotado :c</h4>
+                    <p class="text-sm text-white flex justify-center items-center">Vuelve mañana para mostrarte más música <3</p>
+                    <p class="text-sm text-white flex justify-center items-center">Esperemos que te guste alguna ;3</p>
                 </div>
             `;
 
