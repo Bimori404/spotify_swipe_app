@@ -86,3 +86,38 @@
 //     }
 // }
 // ------------------------------------------------------------------------------------- //
+// playPauseBtn.textContent = '⏸️';
+// playPauseBtn.textContent = '▶️';
+// ------------------------------------------------------------------------------------- //
+// function loginAsGuest() {
+//     const guestCredentials = {
+//         email: "bimoribusiness@gmail.com",
+//         password: "accountSpoti1901"
+//     };
+//     // Aquí se debería implementar la lógica para autenticar al usuario invitado
+//     // Dado que el flujo de autenticación con Spotify es diferente y seguro,
+//     // esta parte necesita integrarse con un backend que maneje la autenticación.
+//     // Este es solo un ejemplo simplificado.
+//     authenticateUserWithEmailPassword(guestCredentials.email, guestCredentials.password);
+// }
+// function authenticateUserWithEmailPassword(email, password) {
+//     // Esta función debería autenticar al usuario con el backend que maneje la autenticación
+//     // Por ejemplo, se podría usar Firebase Authentication, Auth0, etc.
+//     // Aquí sólo se muestra un ejemplo ficticio.
+//     axios.post('https://example.com/authenticate', { email, password })
+//         .then(res => {
+//             if (res.data.success) {
+//                 localStorage.setItem('access_token', res.data.access_token);
+//                 localStorage.setItem('refresh_token', res.data.refresh_token);
+//                 checkPlaylist(res.data.access_token);
+//             } else {
+//                 console.error('Error authenticating guest user');
+//                 document.getElementById("loaderBackground").style.display = "none";
+//             }
+//         })
+//         .catch(error => {
+//             console.error('Error:', error);
+//             document.getElementById("loaderBackground").style.display = "none";
+//         });
+// }
+// ------------------------------------------------------------------------------------- //

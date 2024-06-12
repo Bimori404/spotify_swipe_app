@@ -108,35 +108,43 @@
 - Problema con el cierre de sesión.
 - Reproducción continua de canciones al rechazar una tarjeta.
 
-## Version 2.2.0
+## Version 2.3.0
 
-**Added:**
+**New Features:**
 
-- Creacion de CHANGELOG.md para controlar las futuras versiones.
+- Función de Acceso como Invitado:
+  - Se agregó un nuevo botón para permitir a los usuarios acceder a la aplicación como invitados utilizando las credenciales proporcionadas.
+
+  - Se implementó una funcionalidad básica de autenticación de invitados en JavaScript para simular el inicio de sesión de invitados utilizando las credenciales proporcionadas.
 
 **Changes:**
 
-- index.html:
+- Ajustes Menores de UI:
+  - Se realizaron ajustes menores en el diseño de la interfaz de usuario para una mejor presentación visual.
 
-  - Se agregaron estilos de carga para una mejor experiencia del usuario durante la carga.
-  - Se actualizó la función authenticateUser para manejar los errores correctamente.
-  - Se agregó manejo de errores para la obtención de la lista de reproducción.
-  - Se mejoró la legibilidad y organización del código.
+**Bug Fixes:**
 
-- content.html:
+- Manejo de Credenciales de Invitados:
+  - Se incluyó un aviso sobre la naturaleza insegura de almacenar y utilizar directamente las credenciales de invitados en el frontend, y se enfatizó la importancia de manejar de manera segura la autenticación de usuarios en el backend.
 
-  - Se agregó un menú desplegable para las opciones del usuario.
-  - Se mejoró el estilo para una mejor capacidad de respuesta en dispositivos móviles.
-  - Se mejoró el manejo de errores en caso de que no haya pistas disponibles.
-  - Se agregó una tarjeta final cuando se usan todos los deslizamientos.
-  - Se actualizó la visualización de la imagen de usuario para utilizar una imagen de fondo para un mejor rendimiento.
+**Security and User Experience Improvements:**
 
-**Fixes:**
+- Manejo de Solicitudes CORS:
+  - Se abordó el problema de CORS (Cross-Origin Resource Sharing) al realizar solicitudes desde el cliente hacia un servidor externo.
+  - Se sugirió la configuración del servidor para incluir el encabezado `Access-Control-Allow-Origin` o el uso de un proxy durante el desarrollo para evitar problemas de CORS.
 
-- Se corrigió la posición de la imagen de fondo en la vista móvil para la clase bg-svg.
-- Se corrigió un problema de CSS con la posición del menú desplegable.
-- Se corrigió el manejo de errores al obtener la imagen del usuario.
+- Consideraciones de Seguridad:
+  - Se destacó la importancia de manejar correctamente las credenciales y tokens, especialmente en entornos de producción, para garantizar la seguridad de los usuarios.
 
 **Known Issues:**
 
-- Ceacion de multiples listas de reproduccion, al salir y volver a entrar a la WebApp.
+- Almacenamiento Inseguro de Credenciales:
+  - El uso directo de las credenciales de invitados en el frontend es inseguro y debe abordarse mediante la implementación de mecanismos seguros de autenticación en el backend.
+
+**Notas Adicionales:**
+
+- Requiere Integración con el Backend:
+  - Aunque se ha implementado una autenticación básica de invitados con fines de demostración, se recomienda encarecidamente integrar esta función con un backend seguro para el manejo adecuado de credenciales y autenticación.
+
+- Consideraciones de Experiencia de Usuario:
+  - Se debe informar a los usuarios sobre las limitaciones y riesgos asociados con el acceso de invitados, y se les debe animar a utilizar métodos de autenticación más seguros siempre que sea posible.

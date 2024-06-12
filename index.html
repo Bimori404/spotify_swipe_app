@@ -39,9 +39,6 @@
     .loginButton {
         filter: drop-shadow(0 0 10px rgb(82, 82, 82));
     }
-    /* .card-login {
-        background: #f3f3f3;
-    } */
 
     /* Ajustes adicionales para móviles */
     @media (max-width: 767px) {
@@ -94,14 +91,19 @@
 
     <div class="">
         <div class="card-login p-8 rounded-lg shadow-md w-96">
-            <div id="login" class="flex items-center">
+            <div id="login" class="flex flex-col items-center">
                 <img class="app-logo"
                     src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"
                     alt="Spotify Logo">
                 <button id="loginButton"
-                    class="loginButton ml-4 mt-12 mb-12 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
+                    class="loginButton mt-12 mb-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600">
                     Iniciar sesión con Spotify
                 </button>
+                <button id="guestButton"
+                    class="loginButton bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                    Acceder como Invitado
+                </button>
+
             </div>
         </div>
     </div>
@@ -110,8 +112,8 @@
         const Global = {
             access_token: "",
             refresh_token: "",
-            // redirect_uri: "http://localhost:5500/",
-            redirect_uri: "https://music-swipe.netlify.app",
+            redirect_uri: "http://localhost:5500/",
+            // redirect_uri: "https://music-swipe.netlify.app",
             client_id: "e087190a185d4fe3b8ce98087ca03b3c",
             client_secret: "7566aa44b8b842ccaba4529383016596",
             scopes: "user-read-private user-read-email playlist-modify-private playlist-modify-public"
@@ -126,6 +128,11 @@
             document.getElementById("loginButton").addEventListener("click", () => {
                 document.getElementById("loaderBackground").style.display = "flex";
                 window.location.replace(spoty_url);
+            });
+
+            document.getElementById("guestButton").addEventListener("click", () => {
+                document.getElementById("loaderBackground").style.display = "flex";
+                loginAsGuest();
             });
 
             if (spotyCode) {
@@ -169,7 +176,7 @@
 
                     if (existingPlaylist) {
                         localStorage.setItem('playlist_id', existingPlaylist.id);
-                        // window.location.href = "/content.html";
+                        window.location.href = "/content.html";
                         // window.location.href = "https://spotify-swipe.netlify.app/content.html";
                         console.log("Playlist existente");
                     } else {
@@ -202,7 +209,7 @@
                         }
                     }).then(res => {
                         localStorage.setItem('playlist_id', res.data.id);
-                        // window.location.href = "/content.html";
+                        window.location.href = "/content.html";
                         // window.location.href = "https://spotify-swipe.netlify.app/content.html";
                     }).catch(error => {
                         console.error('Error creating playlist:', error);
@@ -211,6 +218,14 @@
                     console.error('Error fetching profile data:', error);
                 });
                 console.log("Playlist creada");
+            }
+
+            function loginAsGuest() {
+                // Aquí puedes almacenar las credenciales de invitado en el almacenamiento local
+                // o redirigir al usuario a una página específica para invitados
+                localStorage.setItem('guest', 'true');
+                window.location.href = "/content.html";
+                // window.location.href = "https://spotify-swipe.netlify.app/content.html";
             }
         });
     </script>

@@ -300,7 +300,8 @@
 
 <body class="bg-svg flex justify-center items-top py-6 sm:h-screen">
     <div class="dropdown sm:py-2">
-        <button class="dropbtn">
+        <button class="dropbtn"
+            style="background-image: url('https://cdn.icon-icons.com/icons2/37/PNG/512/Guest_theapplication_2906.png'); background-size: cover;">
             <a href="https://open.spotify.com/">
                 <!-- img user -->
             </a>
@@ -321,8 +322,8 @@
     document.getElementById('logout').addEventListener('click', () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        // window.location.href = '/index.html';
-        window.location.href = "https://music-swipe.netlify.app";
+        window.location.href = '/index.html';
+        // window.location.href = "https://music-swipe.netlify.app";
 
     });
 
@@ -421,11 +422,9 @@
         playPauseBtn.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play();
-                // playPauseBtn.textContent = '⏸️';
                 playPauseBtn.innerHTML = '&#x2590;&#x2590;';
             } else {
                 audio.pause();
-                // playPauseBtn.textContent = '▶️';
                 playPauseBtn.innerHTML = '&#x25B6;';
             }
         });
