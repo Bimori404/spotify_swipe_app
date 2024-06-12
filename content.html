@@ -357,7 +357,7 @@
 
     async function fetchSongs(token) {
         const genre = getRandomGenre();
-        const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=5`;
+        const url = `https://api.spotify.com/v1/search?q=genre:${genre}&type=track&limit=20`;
 
         try {
             const response = await fetch(url, {
